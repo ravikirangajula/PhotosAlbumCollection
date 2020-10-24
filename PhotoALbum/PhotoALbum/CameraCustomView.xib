@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CameraCustomView" customModule="PhotoALbum" customModuleProvider="target">
+            <connections>
+                <outlet property="capture" destination="I5d-Qb-FF1" id="eFG-Ps-qWO"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="n19-ck-eVx"/>
+                <outlet property="horizontalCollection" destination="gOl-Q5-hxA" id="gtL-un-otq"/>
+                <outlet property="photogallery" destination="hDm-w8-nyq" id="cU9-Ug-3Xg"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="160"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDm-w8-nyq">
+                    <rect key="frame" x="39" y="115" width="46" height="30"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="Hav-Sf-ajQ"/>
+                        <constraint firstAttribute="width" constant="46" id="Zwb-kV-Yd8"/>
+                    </constraints>
+                    <state key="normal" title="Button" image="photo-album"/>
+                    <connections>
+                        <action selector="showAlbnum:" destination="-1" eventType="touchUpInside" id="nii-TD-Eb2"/>
+                    </connections>
+                </button>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="gOl-Q5-hxA">
+                    <rect key="frame" x="1" y="13" width="414" height="80"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="80" id="TV3-HN-KCA"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Jho-fo-2Vm">
+                        <size key="itemSize" width="128" height="80"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I5d-Qb-FF1">
+                    <rect key="frame" x="188.5" y="108" width="37" height="37"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="37" id="ZIg-fg-kIS"/>
+                        <constraint firstAttribute="width" constant="37" id="pUN-6V-9qJ"/>
+                    </constraints>
+                    <state key="normal" image="circle-32"/>
+                    <connections>
+                        <action selector="captureBtnClicked:" destination="-1" eventType="touchUpInside" id="2sg-nH-Ju5"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TVI-GK-SBs">
+                    <rect key="frame" x="349" y="115" width="46" height="30"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="46" id="H80-Px-F4h"/>
+                        <constraint firstAttribute="height" constant="30" id="T4I-Mb-vDZ"/>
+                    </constraints>
+                    <state key="normal" title="Button" image="rotate"/>
+                    <connections>
+                        <action selector="doneBtn:" destination="-1" eventType="touchUpInside" id="LAY-9q-5FD"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="hDm-w8-nyq" secondAttribute="bottom" constant="15" id="CWD-es-YRU"/>
+                <constraint firstItem="gOl-Q5-hxA" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="1" id="Jrz-Tv-tfK"/>
+                <constraint firstItem="gOl-Q5-hxA" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" constant="1" id="K4U-Mt-Zqk"/>
+                <constraint firstItem="I5d-Qb-FF1" firstAttribute="top" secondItem="gOl-Q5-hxA" secondAttribute="bottom" constant="15" id="NKa-gd-07L"/>
+                <constraint firstItem="hDm-w8-nyq" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="39" id="WCz-QL-7Zu"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="I5d-Qb-FF1" secondAttribute="bottom" constant="15" id="fFb-Sb-Hir"/>
+                <constraint firstItem="I5d-Qb-FF1" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="fV8-nE-O3u"/>
+                <constraint firstItem="gOl-Q5-hxA" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="g4g-cK-8BN"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="TVI-GK-SBs" secondAttribute="trailing" constant="19" id="o4U-kf-1jA"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="TVI-GK-SBs" secondAttribute="bottom" constant="15" id="pvf-Dt-wu6"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="137.68115942028987" y="103.125"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="circle-32" width="16" height="16"/>
+        <image name="photo-album" width="256" height="256"/>
+        <image name="rotate" width="256" height="256"/>
+    </resources>
+</document>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AlbumCollectionViewController" customModule="PhotoALbum" customModuleProvider="target">
+            <connections>
+                <outlet property="albumCollection" destination="FQ2-fT-QPe" id="D0o-O4-rEm"/>
+                <outlet property="captureView" destination="Tzb-wA-BJh" id="hh6-tB-7Xz"/>
+                <outlet property="managelabel" destination="rMQ-eW-aid" id="rw5-2a-VI1"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manage in Settings" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rMQ-eW-aid">
+                    <rect key="frame" x="10" y="64" width="384" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="FQ2-fT-QPe">
+                    <rect key="frame" x="0.0" y="104.5" width="414" height="689.5"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="0.0" id="QRC-W2-iOs">
+                        <size key="itemSize" width="80" height="80"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pfB-Wm-smt">
+                    <rect key="frame" x="52" y="822" width="310.5" height="30"/>
+                    <color key="backgroundColor" systemColor="linkColor"/>
+                    <state key="normal" title="Done">
+                        <color key="titleColor" systemColor="systemBackgroundColor"/>
+                    </state>
+                    <connections>
+                        <action selector="nexyBtnClicked:" destination="-1" eventType="touchUpInside" id="qUw-Yy-qAU"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tzb-wA-BJh" customClass="CameraCustomView" customModule="PhotoALbum" customModuleProvider="target">
+                    <rect key="frame" x="44" y="638" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="y9R-Vd-1zI"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="y9R-Vd-1zI" firstAttribute="top" secondItem="rMQ-eW-aid" secondAttribute="top" constant="-20" id="2Ir-i6-Vaw"/>
+                <constraint firstItem="pfB-Wm-smt" firstAttribute="top" secondItem="FQ2-fT-QPe" secondAttribute="bottom" constant="28" id="2sD-9z-YWA"/>
+                <constraint firstItem="FQ2-fT-QPe" firstAttribute="top" secondItem="rMQ-eW-aid" secondAttribute="bottom" constant="20" id="79f-pM-404"/>
+                <constraint firstItem="FQ2-fT-QPe" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="Iho-gx-vFG"/>
+                <constraint firstItem="rMQ-eW-aid" firstAttribute="leading" secondItem="y9R-Vd-1zI" secondAttribute="leading" constant="10" id="Mpb-UE-X6F"/>
+                <constraint firstItem="FQ2-fT-QPe" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="TNJ-Qp-vcf"/>
+                <constraint firstItem="pfB-Wm-smt" firstAttribute="centerX" secondItem="y9R-Vd-1zI" secondAttribute="centerX" id="dbz-DS-8vx"/>
+                <constraint firstItem="y9R-Vd-1zI" firstAttribute="trailing" secondItem="rMQ-eW-aid" secondAttribute="trailing" constant="20" id="hKn-Cq-RNY"/>
+                <constraint firstItem="pfB-Wm-smt" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.75" id="lOY-GZ-9dO"/>
+                <constraint firstItem="y9R-Vd-1zI" firstAttribute="bottom" secondItem="pfB-Wm-smt" secondAttribute="bottom" constant="10" id="ueD-3B-qrk"/>
+            </constraints>
+            <point key="canvasLocation" x="21.739130434782609" y="96.428571428571431"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
