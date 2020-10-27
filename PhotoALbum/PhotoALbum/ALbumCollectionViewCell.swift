@@ -19,8 +19,8 @@ class ALbumCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.checkMarkImage.isHidden = true
-        self.imageView.layer.borderColor = UIColor.red.cgColor
-        self.imageView.layer.borderWidth = 2.0
+//        self.imageView.layer.borderColor = UIColor.red.cgColor
+//        self.imageView.layer.borderWidth = 2.0
     }
     @IBOutlet weak var checkMarkImage: UIImageView!
     

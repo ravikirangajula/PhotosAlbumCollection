@@ -34,7 +34,7 @@
                     </connections>
                 </button>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="gOl-Q5-hxA">
-                    <rect key="frame" x="1" y="13" width="414" height="80"/>
+                    <rect key="frame" x="1" y="-5" width="414" height="80"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="80" id="TV3-HN-KCA"/>
@@ -47,12 +47,12 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I5d-Qb-FF1">
-                    <rect key="frame" x="188.5" y="108" width="37" height="37"/>
+                    <rect key="frame" x="188.5" y="95" width="50" height="50"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="37" id="ZIg-fg-kIS"/>
-                        <constraint firstAttribute="width" constant="37" id="pUN-6V-9qJ"/>
+                        <constraint firstAttribute="height" constant="50" id="ZIg-fg-kIS"/>
+                        <constraint firstAttribute="width" constant="50" id="pUN-6V-9qJ"/>
                     </constraints>
-                    <state key="normal" image="circle-32"/>
+                    <state key="normal" image="capture_icon"/>
                     <connections>
                         <action selector="captureBtnClicked:" destination="-1" eventType="touchUpInside" id="2sg-nH-Ju5"/>
                     </connections>
@@ -76,10 +76,10 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="hDm-w8-nyq" secondAttribute="bottom" constant="15" id="CWD-es-YRU"/>
                 <constraint firstItem="gOl-Q5-hxA" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="1" id="Jrz-Tv-tfK"/>
                 <constraint firstItem="gOl-Q5-hxA" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" constant="1" id="K4U-Mt-Zqk"/>
-                <constraint firstItem="I5d-Qb-FF1" firstAttribute="top" secondItem="gOl-Q5-hxA" secondAttribute="bottom" constant="15" id="NKa-gd-07L"/>
+                <constraint firstItem="I5d-Qb-FF1" firstAttribute="top" secondItem="gOl-Q5-hxA" secondAttribute="bottom" constant="20" id="NKa-gd-07L"/>
                 <constraint firstItem="hDm-w8-nyq" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="39" id="WCz-QL-7Zu"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="I5d-Qb-FF1" secondAttribute="bottom" constant="15" id="fFb-Sb-Hir"/>
-                <constraint firstItem="I5d-Qb-FF1" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="fV8-nE-O3u"/>
+                <constraint firstItem="I5d-Qb-FF1" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" constant="6.5" id="fV8-nE-O3u"/>
                 <constraint firstItem="gOl-Q5-hxA" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="g4g-cK-8BN"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="TVI-GK-SBs" secondAttribute="trailing" constant="19" id="o4U-kf-1jA"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="TVI-GK-SBs" secondAttribute="bottom" constant="15" id="pvf-Dt-wu6"/>
@@ -89,7 +89,7 @@
         </view>
     </objects>
     <resources>
-        <image name="circle-32" width="16" height="16"/>
+        <image name="capture_icon" width="600" height="600"/>
         <image name="photo-album" width="256" height="256"/>
         <image name="rotate" width="256" height="256"/>
     </resources>

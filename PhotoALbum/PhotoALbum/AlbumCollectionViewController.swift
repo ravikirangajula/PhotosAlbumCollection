@@ -15,7 +15,7 @@ protocol selectedImagesDelegate: class  {
 class AlbumCollectionViewController: UIViewController {
     
     @IBOutlet weak var captureView: CameraCustomView!
-    let termText = "you can change app access to your phots any time. Manage"
+    let termText = "you can change app access to your photos any time. Manage"
     let term = "Manage"
     
     @IBOutlet weak var managelabel: UILabel!
@@ -31,12 +31,20 @@ class AlbumCollectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagePicker =  UIImagePickerController()
+        imagePicker.delegate = self
+        
         self.edgesForExtendedLayout = []
         setLabel()
         albumCollection.register(UINib(nibName: "ALbumCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: ALbumCollectionViewCell.identifier)
         albumCollection.allowsMultipleSelection = true
-        albumCollection.delegate = self
-        albumCollection.dataSource = self
+        if #available(iOS 14.0, *) {
+            albumCollection.allowsSelectionDuringEditing = true
+        } else {
+            // Fallback on earlier versions
+        }
+        albumCollection.allowsSelection = true
+     
         
         captureView.horizontalCollection.register(UINib(nibName: "CapturedImagesCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: CapturedImagesCollectionViewCell.identifier)
         captureView.horizontalCollection.delegate = self
@@ -51,6 +59,8 @@ class AlbumCollectionViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        albumCollection.delegate = self
+        albumCollection.dataSource = self
         self.edgesForExtendedLayout = []
         fetchAssets()
     }
@@ -77,7 +87,9 @@ class AlbumCollectionViewController: UIViewController {
     
     private func createFlashBtn() {
         let flashBtn = UIButton()
-        flashBtn.frame = CGRect(x: self.view.frame.size.width - 40, y: 10, width: 28, height: 28)
+        let topSaferArea = self.parent?.view.safeAreaInsets.top ?? 0
+
+        flashBtn.frame = CGRect(x: self.view.frame.size.width - 35, y: 40, width: 28, height: 28)
         flashBtn.setBackgroundImage(#imageLiteral(resourceName: "flash"), for: .normal)
         flashBtn.addTarget(self, action: #selector(flashMode), for: .touchUpInside)
         self.imagePicker.view.addSubview(flashBtn)
@@ -85,7 +97,8 @@ class AlbumCollectionViewController: UIViewController {
 
     private func createCancelBtn() {
         let cancelBtn = UIButton()
-        cancelBtn.frame = CGRect(x: 40, y: 10, width: 28, height: 28)
+        let topSaferArea = self.parent?.view.safeAreaInsets.top ?? 0
+        cancelBtn.frame = CGRect(x: 25, y:40, width: 28, height: 28)
         cancelBtn.setBackgroundImage(#imageLiteral(resourceName: "close"), for: .normal)
         cancelBtn.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
         self.imagePicker.view.addSubview(cancelBtn)
@@ -124,6 +137,10 @@ extension AlbumCollectionViewController : UICollectionViewDataSource, UICollecti
             }
             if indexPath.item == 0 {
                 cell.imageView.image = #imageLiteral(resourceName: "icon_insertad_photo_add")
+                cell.imageView.isUserInteractionEnabled = true
+             //   let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+              //  cell.imageView.addGestureRecognizer(tap)
+
             } else {
                 let asset = allPhotos[indexPath.item - 1]
                 cell.imageView.fetchImageAsset(asset, targetSize: cell.imageView.bounds.size, completionHandler: nil)
@@ -140,6 +157,10 @@ extension AlbumCollectionViewController : UICollectionViewDataSource, UICollecti
             return cell
         }
 
+    }
+    
+    @objc func dismissKeyboard() {
+        showPhotoCaptureView()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -179,7 +200,7 @@ extension AlbumCollectionViewController : UICollectionViewDelegateFlowLayout {
         if collectionView == albumCollection {
             return CollectionViewFlowLayoutType(.photos, frame: view.frame).sizeForItem
         } else {
-            return CGSize(width: 60, height: 60)
+            return CGSize(width: 80, height: 80)
 
         }
     }
@@ -188,8 +209,12 @@ extension AlbumCollectionViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        
-        return CollectionViewFlowLayoutType(.photos, frame: view.frame).sectionInsets
+        if collectionView == albumCollection {
+            return CollectionViewFlowLayoutType(.photos, frame: view.frame).sectionInsets
+
+        } else {
+            return UIEdgeInsets(top: 4.0, left: 2.0, bottom: 4.0, right: 2.0)
+        }
     }
     
     // 4
@@ -302,23 +327,31 @@ extension AlbumCollectionViewController {
         
         //Check is source type available
         if UIImagePickerController.isSourceTypeAvailable(sourceType) {
-            imagePicker =  UIImagePickerController()
-            imagePicker.delegate = self
+
             imagePicker.sourceType = sourceType
             // imagePicker.allowsEditing = false
             imagePicker.showsCameraControls = false
 
             //  let translate = CGAffineTransform(translationX: 0.0, y: 100)
-            imagePicker.cameraViewTransform = CGAffineTransform(translationX: 0.0, y: 40)
+            let topSaferArea = self.parent?.view.safeAreaInsets.top ?? 0
+            let bottomSaferArea = self.parent?.view.safeAreaInsets.bottom ?? 0
+            //imagePicker.cameraViewTransform = CGAffineTransform(translationX: 0.0, y: saferArea + bottomSaferArea)
             //imagePicker.cameraViewTransform = translate
             //  captureView?.frame = imagep
             //var scale = translate.scaledBy(x: 0.5, y: 0.5)
             // imagePicker.cameraViewTransform  = scale
            // imagePicker.cameraViewTransform = CGAffineTransform(scaleX: 2.0, y: 2.0)
-            if captureView == nil {
-                captureView = CameraCustomView()
-            }
-            captureView.frame = CGRect(x: 0, y:  self.view.frame.size.height - 100, width: self.view.frame.size.width, height: 160)
+            let screenSize = UIScreen.main.bounds.size
+            let aspectRatio:CGFloat = 4.0/3.0
+            let camHeight = screenSize.width * aspectRatio
+            let scale = screenSize.height/camHeight
+             let safeHeights = topSaferArea + bottomSaferArea
+            let deductheights = camHeight + 160
+            let yhae = screenSize.height - (deductheights + topSaferArea)
+            imagePicker.cameraViewTransform = CGAffineTransform(translationX: 0, y:yhae)
+           // imagePicker.cameraViewTransform = CGAffineTransform(scaleX: scale, y: scale)
+
+            captureView.frame = CGRect(x: 0, y: self.imagePicker.view.frame.size.height - 160 - bottomSaferArea, width: self.view.frame.size.width, height: 160)
             listenForCalls()
             imagePicker.cameraOverlayView = captureView
             self.present(imagePicker, animated: true, completion: nil)
@@ -336,7 +369,12 @@ extension AlbumCollectionViewController {
         }
         
         captureView.selectFromGallery = { [weak self] in
-            self?.dismiss(animated: true, completion: nil)
+            self?.dismiss(animated: true, completion: {
+                DispatchQueue.main.async {
+                    self?.albumCollection.reloadData()
+                }
+                
+            })
             //self?.imagePicker.cameraFlashMode = .on
         }
         

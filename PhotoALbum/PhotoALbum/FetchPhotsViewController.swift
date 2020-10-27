@@ -73,6 +73,9 @@ extension AlbumCollectionViewController: PHPhotoLibraryChangeObserver,UIImagePic
                      didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
             print("ERROR: \(error)")
+        } else {
+            print("Success")
+
         }
     }
     

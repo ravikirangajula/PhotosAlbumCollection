@@ -44,11 +44,11 @@ class CameraCustomView: UIView {
        contentView.autoresizingMask                          = [.flexibleHeight, .flexibleWidth]
        contentView.translatesAutoresizingMaskIntoConstraints = true
         addSubview(contentView)
-        horizontalCollection.layer.borderColor = UIColor.green.cgColor
-        horizontalCollection.layer.borderWidth = 2.0
-
-        contentView.layer.borderColor = UIColor.red.cgColor
-        contentView.layer.borderWidth = 2.0
+//        horizontalCollection.layer.borderColor = UIColor.green.cgColor
+//        horizontalCollection.layer.borderWidth = 2.0
+//
+//        contentView.layer.borderColor = UIColor.blue.cgColor
+//        contentView.layer.borderWidth = 2.0
 
     }
 
