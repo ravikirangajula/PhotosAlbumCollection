@@ -170,7 +170,7 @@ extension AlbumCollectionViewController : UICollectionViewDataSource, UICollecti
         }
         let items = albumCollection.indexPathsForSelectedItems
         print("items= \(items)")
-        if items?.count ?? 0 > 4 {
+        if items?.count ?? 0 > 10 {
             self.baneerView()
             self.perform(#selector(dismissBanner), with: self, afterDelay: 5)
         }
@@ -178,11 +178,11 @@ extension AlbumCollectionViewController : UICollectionViewDataSource, UICollecti
     
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        if albumCollection.indexPathsForSelectedItems?.count ?? 0 == 4 {
+        if albumCollection.indexPathsForSelectedItems?.count ?? 0 == 10 {
             baneerView()
             self.perform(#selector(dismissBanner), with: self, afterDelay: 5)
         }
-        return albumCollection.indexPathsForSelectedItems?.count ?? 0 <= 3
+        return albumCollection.indexPathsForSelectedItems?.count ?? 0 <= 9
     }
     func collectionViewDidEndMultipleSelectionInteraction(_ collectionView: UICollectionView) {
         

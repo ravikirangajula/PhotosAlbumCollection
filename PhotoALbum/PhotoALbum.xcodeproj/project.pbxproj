@@ -25,6 +25,7 @@
 		3BC4FEA32542CF0800B86C7C /* CameraCustomView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BC4FEA22542CF0800B86C7C /* CameraCustomView.xib */; };
 		3BEDD5E82539F82A00B8BF8C /* AlbumCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEDD5E62539F82A00B8BF8C /* AlbumCollectionViewController.swift */; };
 		3BEDD5E92539F82A00B8BF8C /* AlbumCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BEDD5E72539F82A00B8BF8C /* AlbumCollectionViewController.xib */; };
+		B851C0192559972800DED030 /* DragCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B851C0182559972800DED030 /* DragCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		3BEDD5E72539F82A00B8BF8C /* AlbumCollectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumCollectionViewController.xib; sourceTree = "<group>"; };
 		3BF3C6E8253C1052000FF276 /* CapturePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturePhotoViewController.swift; sourceTree = "<group>"; };
 		3BF3C6E9253C1052000FF276 /* CapturePhotoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CapturePhotoViewController.xib; sourceTree = "<group>"; };
+		B851C0182559972800DED030 /* DragCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				3B498A972542EFB7003B335A /* CapturedImagesCollectionViewCell.swift */,
 				3B498A982542EFB7003B335A /* CapturedImagesCollectionViewCell.xib */,
 				3BC4FEA22542CF0800B86C7C /* CameraCustomView.xib */,
+				B851C0182559972800DED030 /* DragCollectionViewCell.swift */,
 			);
 			path = PhotoALbum;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B851C0192559972800DED030 /* DragCollectionViewCell.swift in Sources */,
 				3BC4FE9B2542CEF800B86C7C /* CameraCustomView.swift in Sources */,
 				3B4020DA2539C74400B61A20 /* ViewController.swift in Sources */,
 				3B370464253A00A100D81347 /* ALbumCollectionViewCell.swift in Sources */,
@@ -484,7 +488,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8B4JVDXC4K;
+				DEVELOPMENT_TEAM = J7HBXDH295;
 				INFOPLIST_FILE = PhotoALbum/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -505,7 +509,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8B4JVDXC4K;
+				DEVELOPMENT_TEAM = J7HBXDH295;
 				INFOPLIST_FILE = PhotoALbum/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
