@@ -20,6 +20,7 @@ extension AlbumCollectionViewController {
             ascending: false)
         ]
         // 2
+        
         allPhotos = PHAsset.fetchAssets(with: allPhotosOptions)
         // 3
         smartAlbums = PHAssetCollection.fetchAssetCollections(

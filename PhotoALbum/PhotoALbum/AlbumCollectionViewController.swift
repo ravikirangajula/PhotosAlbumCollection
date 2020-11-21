@@ -17,6 +17,7 @@ class AlbumCollectionViewController: UIViewController {
     @IBOutlet weak var captureView: CameraCustomView!
     let termText = "you can change app access to your photos any time. Manage"
     let term = "Manage"
+    var maxcount = 5
     
     @IBOutlet weak var managelabel: UILabel!
     var allPhotos = PHFetchResult<PHAsset>()
@@ -37,13 +38,13 @@ class AlbumCollectionViewController: UIViewController {
         self.edgesForExtendedLayout = []
         setLabel()
         albumCollection.register(UINib(nibName: "ALbumCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: ALbumCollectionViewCell.identifier)
-        albumCollection.allowsMultipleSelection = true
-        if #available(iOS 14.0, *) {
-            albumCollection.allowsSelectionDuringEditing = true
-        } else {
-            // Fallback on earlier versions
-        }
         albumCollection.allowsSelection = true
+        albumCollection.allowsMultipleSelection = true
+//        if #available(iOS 14.0, *) {
+//            albumCollection.allowsSelectionDuringEditing = true
+//        } else {
+//            // Fallback on earlier versions
+//        }
      
         
         captureView.horizontalCollection.register(UINib(nibName: "CapturedImagesCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: CapturedImagesCollectionViewCell.identifier)
@@ -79,7 +80,7 @@ class AlbumCollectionViewController: UIViewController {
     @IBAction func nexyBtnClicked(_ sender: Any) {
         
         guard let indexPaths: [IndexPath] = albumCollection.indexPathsForSelectedItems else { return }
-        let indexes = indexPaths.map({ $0.item })
+        let indexes = indexPaths.map({ $0.item - 1})
         let neware = indexes.map { allPhotos[$0] }
         delegate?.selectedImagesList(neware)
         self.navigationController?.popViewController(animated: true)
@@ -87,7 +88,11 @@ class AlbumCollectionViewController: UIViewController {
     
     private func createFlashBtn() {
         let flashBtn = UIButton()
-        let topSaferArea = self.parent?.view.safeAreaInsets.top ?? 0
+        if #available(iOS 11.0, *) {
+            let topSaferArea = self.parent?.view.safeAreaInsets.top ?? 0
+        } else {
+            // Fallback on earlier versions
+        }
 
         flashBtn.frame = CGRect(x: self.view.frame.size.width - 35, y: 40, width: 28, height: 28)
         flashBtn.setBackgroundImage(#imageLiteral(resourceName: "flash"), for: .normal)
@@ -97,7 +102,11 @@ class AlbumCollectionViewController: UIViewController {
 
     private func createCancelBtn() {
         let cancelBtn = UIButton()
-        let topSaferArea = self.parent?.view.safeAreaInsets.top ?? 0
+        if #available(iOS 11.0, *) {
+            let topSaferArea = self.parent?.view.safeAreaInsets.top ?? 0
+        } else {
+            // Fallback on earlier versions
+        }
         cancelBtn.frame = CGRect(x: 25, y:40, width: 28, height: 28)
         cancelBtn.setBackgroundImage(#imageLiteral(resourceName: "close"), for: .normal)
         cancelBtn.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
@@ -122,6 +131,7 @@ extension AlbumCollectionViewController : UICollectionViewDataSource, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.albumCollection {
+            
             return allPhotos.count + 1
         } else {
             return capturedImages.count
@@ -135,15 +145,15 @@ extension AlbumCollectionViewController : UICollectionViewDataSource, UICollecti
                     for: indexPath) as? ALbumCollectionViewCell else {
                 fatalError("Unable to dequeue PhotoCollectionViewCell")
             }
+            cell.imageView.isUserInteractionEnabled = true
+
             if indexPath.item == 0 {
                 cell.imageView.image = #imageLiteral(resourceName: "icon_insertad_photo_add")
-                cell.imageView.isUserInteractionEnabled = true
-             //   let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-              //  cell.imageView.addGestureRecognizer(tap)
 
             } else {
-                let asset = allPhotos[indexPath.item - 1]
+                let asset = allPhotos[indexPath.item  - 1]
                 cell.imageView.fetchImageAsset(asset, targetSize: cell.imageView.bounds.size, completionHandler: nil)
+                cell.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(didTap(tapper:))))
             }
             
             return cell
@@ -164,13 +174,14 @@ extension AlbumCollectionViewController : UICollectionViewDataSource, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+       // print("items= \(albumCollection.indexPathsForSelectedItems)")
         if indexPath.item == 0 {
           showPhotoCaptureView()
            return
         }
         let items = albumCollection.indexPathsForSelectedItems
-        print("items= \(items)")
-        if items?.count ?? 0 > 10 {
+        //print("items= \(items)")
+        if items?.count ?? 0 > maxcount {
             self.baneerView()
             self.perform(#selector(dismissBanner), with: self, afterDelay: 5)
         }
@@ -178,11 +189,11 @@ extension AlbumCollectionViewController : UICollectionViewDataSource, UICollecti
     
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        if albumCollection.indexPathsForSelectedItems?.count ?? 0 == 10 {
+        if albumCollection.indexPathsForSelectedItems?.count ?? 0 == maxcount {
             baneerView()
             self.perform(#selector(dismissBanner), with: self, afterDelay: 5)
         }
-        return albumCollection.indexPathsForSelectedItems?.count ?? 0 <= 9
+        return albumCollection.indexPathsForSelectedItems?.count ?? 0 <= maxcount - 1
     }
     func collectionViewDidEndMultipleSelectionInteraction(_ collectionView: UICollectionView) {
         
@@ -190,7 +201,30 @@ extension AlbumCollectionViewController : UICollectionViewDataSource, UICollecti
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         
     }
+    
+    @objc func didTap(tapper:UIGestureRecognizer) {
+      if let cell = tapper.view as? UICollectionViewCell{
+        if let index = albumCollection.indexPath(for: cell) {
+          if albumCollection.indexPathsForSelectedItems?.contains(index) ?? false {
+            albumCollection.deselectItem(at: index, animated: true)
+            cell.isSelected = false
+          }else{
+            let items = albumCollection.indexPathsForSelectedItems
+            print("items= \(items)")
+            if items?.count ?? 0 > maxcount - 1 {
+                self.baneerView()
+                self.perform(#selector(dismissBanner), with: self, afterDelay: 5)
+                return
+            }
+            albumCollection.selectItem(at: index, animated: true, scrollPosition: [])
+            cell.isSelected = true
+
+          }
+        }
+      }
+    }
 }
+
 
 extension AlbumCollectionViewController : UICollectionViewDelegateFlowLayout {
     
@@ -233,7 +267,7 @@ extension AlbumCollectionViewController {
         
         bannerlabel.frame = CGRect(x: 0, y: self.navigationController?.navigationBar.frame.size.height ?? 60, width: self.view.bounds.size.width, height: 60)
         bannerlabel.backgroundColor = UIColor.gray
-        bannerlabel.text = "you can select maximum of 4"
+        bannerlabel.text = "you can select maximum of \(maxcount)"
         bannerlabel.textAlignment = .center
         self.navigationController?.navigationBar.addSubview(bannerlabel)
     }
@@ -332,9 +366,19 @@ extension AlbumCollectionViewController {
             // imagePicker.allowsEditing = false
             imagePicker.showsCameraControls = false
 
+            var topSaferArea:CGFloat = 0
+            var bottomSaferArea:CGFloat = 0
             //  let translate = CGAffineTransform(translationX: 0.0, y: 100)
-            let topSaferArea = self.parent?.view.safeAreaInsets.top ?? 0
-            let bottomSaferArea = self.parent?.view.safeAreaInsets.bottom ?? 0
+            if #available(iOS 11.0, *) {
+                topSaferArea = self.parent?.view.safeAreaInsets.top ?? 0
+            } else {
+                // Fallback on earlier versions
+            }
+            if #available(iOS 11.0, *) {
+                 bottomSaferArea = self.parent?.view.safeAreaInsets.bottom ?? 0
+            } else {
+                // Fallback on earlier versions
+            }
             //imagePicker.cameraViewTransform = CGAffineTransform(translationX: 0.0, y: saferArea + bottomSaferArea)
             //imagePicker.cameraViewTransform = translate
             //  captureView?.frame = imagep

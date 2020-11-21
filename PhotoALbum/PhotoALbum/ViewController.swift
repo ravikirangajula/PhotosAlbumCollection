@@ -161,6 +161,8 @@ extension ViewController: UICollectionViewDelegate,UICollectionViewDataSource {
         self.imageView.image = imagesArra.first
         
     }
+    
+    
 }
 extension ViewController: selectedImagesDelegate {
     
