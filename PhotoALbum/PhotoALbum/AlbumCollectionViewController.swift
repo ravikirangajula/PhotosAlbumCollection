@@ -17,7 +17,7 @@ class AlbumCollectionViewController: UIViewController {
     @IBOutlet weak var captureView: CameraCustomView!
     let termText = "you can change app access to your photos any time. Manage"
     let term = "Manage"
-    var maxcount = 5
+    var maxcount = 20
     
     @IBOutlet weak var managelabel: UILabel!
     var allPhotos = PHFetchResult<PHAsset>()
