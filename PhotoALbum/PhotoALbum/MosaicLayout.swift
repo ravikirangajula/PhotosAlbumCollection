@@ -18,20 +18,18 @@ class MosaicLayout: UICollectionViewLayout {
 
     var contentBounds = CGRect.zero
     var cachedAttributes = [UICollectionViewLayoutAttributes]()
-    private var viewFrame: CGRect = .zero
 
-    var sectionInsets: UIEdgeInsets {
-        return UIEdgeInsets(top: 2.0, left: 2.0, bottom: 2.0, right: 2.0)
-    }
-    
     /// - Tag: PrepareMosaicLayout
     override func prepare() {
         super.prepare()
-        
-        guard let collectionView = collectionView else { return }
-
         // Reset cached information.
+        // 1. Only calculate once
         cachedAttributes.removeAll()
+        guard let collectionView = collectionView else {
+            return
+        }
+       // cachedAttributes.removeAll()
+       // guard let collectionView = collectionView else { return }
         contentBounds = CGRect(origin: .zero, size: collectionView.bounds.size)
         
         // For every item in the collection view:
@@ -91,9 +89,22 @@ class MosaicLayout: UICollectionViewLayout {
             } else {
                 segment = .fiftyFifty
             }
+            
+            for (index,item) in cachedAttributes.enumerated() {
+              print("index==\(index)")
+                if index > count - 1 {
+                    cachedAttributes.removeLast()
+                }
+            }
+
+        
         }
     }
 
+    override func invalidateLayout() {
+        self.cachedAttributes.removeAll()
+    }
+    
     /// - Tag: CollectionViewContentSize
     override var collectionViewContentSize: CGSize {
         return contentBounds.size

@@ -36,20 +36,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        horizonatlCOllection.register(DragCollectionViewCell.self, forCellWithReuseIdentifier: DragCollectionViewCell.identifer)
         horizonatlCOllection.collectionViewLayout = MosaicLayout()
-        horizonatlCOllection.collectionViewLayout.invalidateLayout()
+        horizonatlCOllection.register(DragCollectionViewCell.self, forCellWithReuseIdentifier: DragCollectionViewCell.identifer)
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(ViewController.handleLongGesture))
         self.horizonatlCOllection.addGestureRecognizer(longPressGesture)
         horizonatlCOllection.delegate = self
         horizonatlCOllection.dataSource = self
-        if #available(iOS 11.0, *) {
-          //  horizonatlCOllection.dragInteractionEnabled = true
-        } else {
-            // Fallback on earlier versions
-        }
-
         }
 
     
@@ -81,13 +73,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+  
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        self.horizonatlCOllection.collectionViewLayout.invalidateLayout()
+
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
     
     //get image from source type
     private func getImage(fromSourceType sourceType: UIImagePickerController.SourceType) {
@@ -120,96 +116,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             UIApplication.shared.open(settingsUrl)
         }
     }
-    
-//    func generateLayout() -> UICollectionViewLayout {
-//      // We have three row styles
-//      // Style 1: 'Full'
-//      // A full width photo
-//      // Style 2: 'Main with pair'
-//      // A 2/3 width photo with two 1/3 width photos stacked vertically
-//      // Style 3: 'Triplet'
-//      // Three 1/3 width photos stacked horizontally
-//
-//      // Syncing badge
-//      let syncingBadgeAnchor = NSCollectionLayoutAnchor(edges: [.top, .trailing], fractionalOffset: CGPoint(x: -0.3, y: 0.3))
-//      let syncingBadge = NSCollectionLayoutSupplementaryItem(
-//        layoutSize: NSCollectionLayoutSize(
-//          widthDimension: .absolute(20),
-//          heightDimension: .absolute(20)),
-//        elementKind: ViewController.syncingBadgeKind,
-//        containerAnchor: syncingBadgeAnchor)
-//
-//      // Main with pair
-//      let mainItem = NSCollectionLayoutItem(
-//        layoutSize: NSCollectionLayoutSize(
-//          widthDimension: .fractionalWidth(2/3),
-//          heightDimension: .fractionalHeight(1.0)))
-//      mainItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-//
-//      let pairItem = NSCollectionLayoutItem(
-//        layoutSize: NSCollectionLayoutSize(
-//          widthDimension: .fractionalWidth(1.0),
-//          heightDimension: .fractionalHeight(0.5)))
-//      pairItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-//      let trailingGroup = NSCollectionLayoutGroup.vertical(
-//        layoutSize: NSCollectionLayoutSize(
-//          widthDimension: .fractionalWidth(1/3),
-//          heightDimension: .fractionalHeight(1.0)),
-//        subitem: pairItem,
-//        count: 2)
-//
-//      let mainWithPairGroup = NSCollectionLayoutGroup.horizontal(
-//        layoutSize: NSCollectionLayoutSize(
-//          widthDimension: .fractionalWidth(1.0),
-//          heightDimension: .fractionalWidth(4/9)),
-//        subitems: [mainItem, trailingGroup])
-//
-//      // Triplet
-//      let tripletItem = NSCollectionLayoutItem(
-//        layoutSize: NSCollectionLayoutSize(
-//          widthDimension: .fractionalWidth(1/3),
-//          heightDimension: .fractionalHeight(1.0)))
-//      tripletItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-//
-//      let tripletGroup = NSCollectionLayoutGroup.horizontal(
-//        layoutSize: NSCollectionLayoutSize(
-//          widthDimension: .fractionalWidth(1.0),
-//          heightDimension: .fractionalWidth(2/9)),
-//        subitems: [tripletItem, tripletItem, tripletItem])
-//
-//      // Reversed main with pair
-//      let mainWithPairReversedGroup = NSCollectionLayoutGroup.horizontal(
-//        layoutSize: NSCollectionLayoutSize(
-//          widthDimension: .fractionalWidth(1.0),
-//          heightDimension: .fractionalWidth(4/9)),
-//        subitems: [trailingGroup, mainItem])
-//
-//      let nestedGroup = NSCollectionLayoutGroup.vertical(
-//        layoutSize: NSCollectionLayoutSize(
-//          widthDimension: .fractionalWidth(1.0),
-//          heightDimension: .fractionalWidth(16/9)),
-//        subitems: [mainWithPairGroup, tripletGroup])
-//
-//      let section = NSCollectionLayoutSection(group: nestedGroup)
-//      let layout = UICollectionViewCompositionalLayout(section: section)
-//      return layout
-//    }
-
 }
 
 extension ViewController: UICollectionViewDelegate,UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return assets.count
+
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        // 3
-        let cell = horizonatlCOllection.dequeueReusableCell(withReuseIdentifier: DragCollectionViewCell.identifer, for: indexPath) as! DragCollectionViewCell
         
+        guard let cell = horizonatlCOllection.dequeueReusableCell(withReuseIdentifier: DragCollectionViewCell.identifer, for: indexPath) as? DragCollectionViewCell
+            else { preconditionFailure("Failed to load collection view cell") }
         if !assets.isEmpty {
             let assetIndex = indexPath.item % assets.count
             let asset = assets[assetIndex]
@@ -228,9 +150,12 @@ extension ViewController: UICollectionViewDelegate,UICollectionViewDataSource {
                                                         }
                                                     }
             }
+        } else {
+            cell.imageView.image = #imageLiteral(resourceName: "maintenance_page")
         }
 
         return cell
+ 
     }
     
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
@@ -252,23 +177,17 @@ extension ViewController: UICollectionViewDelegate,UICollectionViewDataSource {
 extension ViewController: selectedImagesDelegate {
     
     func selectedImagesList(_ images: [PHAsset]) {
-        
         assets = images
-        for object in images {
-           // imagesArra .append(convertImageFromAsset(asset: object))
-        }
-       // horizonatlCOllection.collectionViewLayout.invalidateLayout()
-
-        DispatchQueue.main.async { [weak self]  in
-            self?.horizonatlCOllection .reloadData()
-            self?.horizonatlCOllection.collectionViewLayout.invalidateLayout()
-            self?.horizonatlCOllection.layoutSubviews()
-
-        }
-
-       // let asset = images[0]
-       //self.imageView.fetchImageAsset(asset, targetSize: self.imageView.bounds.size, completionHandler: nil)
-
+       // self.horizonatlCOllection.collectionViewLayout.invalidateLayout()
+       // self.horizonatlCOllection.layoutIfNeeded()
+        self.horizonatlCOllection.reloadData()
+//        UIView.animate(withDuration: 0.1, animations: {
+//            self.view.setNeedsLayout()
+//        }, completion: { completion in
+//            if completion {
+//                self.horizonatlCOllection.collectionViewLayout.invalidateLayout()
+//            }
+//        })
     }
     
     func convertImageFromAsset(asset: PHAsset) -> UIImage {
