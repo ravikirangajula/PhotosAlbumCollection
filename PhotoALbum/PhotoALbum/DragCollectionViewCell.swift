@@ -19,13 +19,18 @@ class DragCollectionViewCell: UICollectionViewCell {
         self.clipsToBounds = true
         self.autoresizesSubviews = true
         
+        self.imageView.layer.masksToBounds = true
+        self.imageView.layer.cornerRadius = 10
+
+        self.contentView.layer.masksToBounds = true
+        self.contentView.layer.cornerRadius = 10
         imageView.frame = self.bounds
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.addSubview(imageView)
-        imageView.layer.borderWidth = 2.0
-        imageView.layer.borderColor = UIColor.red.cgColor
+      //  imageView.layer.borderWidth = 2.0
+     //   imageView.layer.borderColor = UIColor.red.cgColor
         // Use a random background color.
         let redColor = CGFloat(arc4random_uniform(255)) / 255.0
         let greenColor = CGFloat(arc4random_uniform(255)) / 255.0

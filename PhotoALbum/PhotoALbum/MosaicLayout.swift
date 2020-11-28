@@ -45,11 +45,11 @@ class MosaicLayout: UICollectionViewLayout {
         let cvWidth = collectionView.bounds.size.width
         
         while currentIndex < count {
-            var height:CGFloat = 100
+            var height:CGFloat = 90
             if currentIndex == 0 {
-                height = 200
+                height = 180
             }
-            let segmentFrame = CGRect(x: 0, y: lastFrame.maxY + 1.0, width: cvWidth, height: height)
+            let segmentFrame = CGRect(x: 15, y: lastFrame.maxY + 8.0, width: cvWidth - 30, height: height)
             
             var segmentRects = [CGRect]()
             switch segment {
@@ -57,7 +57,7 @@ class MosaicLayout: UICollectionViewLayout {
                 segmentRects = [segmentFrame]
                 
             case .fiftyFifty:
-                let horizontalSlices = segmentFrame.dividedIntegral4(fraction: 0.35, from: .minXEdge)
+                let horizontalSlices = segmentFrame.dividedIntegral4(fraction: (1.0 / 3.0), from: .minXEdge)
                 segmentRects = [horizontalSlices.first, horizontalSlices.second, horizontalSlices.third]
                 
             case .twoThirdsOneThird:

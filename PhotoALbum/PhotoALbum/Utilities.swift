@@ -23,11 +23,11 @@ extension CGRect {
         
         switch fromEdge {
         case .minXEdge, .maxXEdge:
-            slices.remainder.origin.x += 1
-            slices.remainder.size.width -= 1
+            slices.remainder.origin.x += 5
+            slices.remainder.size.width -= 5
         case .minYEdge, .maxYEdge:
-            slices.remainder.origin.y += 1
-            slices.remainder.size.height -= 1
+            slices.remainder.origin.y += 5
+            slices.remainder.size.height -= 5
         }
         
         return (first: slices.slice, second: slices.remainder)
@@ -43,25 +43,22 @@ extension CGRect {
         }
         
         
-        
         let distance = (dimension * fraction).rounded(.up)
         var slices = self.divided(atDistance: distance, from: fromEdge)
         
         let fromEdge2 = slices.slice.maxX
-        let slices1Dis = slices.slice.width
-        let secndSlice = CGRect(x: fromEdge2, y: slices.slice.minY, width: distance, height: height)
+        let secndSlice = CGRect(x: fromEdge2 + 5, y: slices.slice.minY, width: distance - 5, height: height)
 
         let fromEdge3 = secndSlice.maxX
-        let slices1Dis3 = slices.slice.width
-        let secndSlice3 = CGRect(x: fromEdge3, y: slices.slice.minY, width: distance, height: height)
+        let secndSlice3 = CGRect(x: fromEdge3 + 5, y: slices.slice.minY, width: distance - 5, height: height)
         
         switch fromEdge {
         case .minXEdge, .maxXEdge:
-            slices.remainder.origin.x += 1
-            slices.remainder.size.width -= 1
+            slices.remainder.origin.x += 5
+            slices.remainder.size.width -= 5
         case .minYEdge, .maxYEdge:
-            slices.remainder.origin.y += 1
-            slices.remainder.size.height -= 1
+            slices.remainder.origin.y += 5
+            slices.remainder.size.height -= 5
         }
         
         return (first: slices.slice, second: secndSlice, third: secndSlice3)

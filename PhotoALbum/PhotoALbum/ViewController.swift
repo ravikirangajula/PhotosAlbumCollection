@@ -136,7 +136,7 @@ extension ViewController: UICollectionViewDelegate,UICollectionViewDataSource {
             let assetIndex = indexPath.item % assets.count
             let asset = assets[assetIndex]
             let assetIdentifier = asset.localIdentifier
-
+            cell.backgroundColor = .white
             cell.assetIdentifier = assetIdentifier
 
             PHImageManager.default().requestImage(for: asset, targetSize: cell.frame.size,
@@ -151,7 +151,7 @@ extension ViewController: UICollectionViewDelegate,UICollectionViewDataSource {
                                                     }
             }
         } else {
-            cell.imageView.image = #imageLiteral(resourceName: "maintenance_page")
+          //  cell.imageView.image = #imageLiteral(resourceName: "maintenance_page")
         }
 
         return cell
