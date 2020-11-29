@@ -155,7 +155,6 @@ extension AlbumCollectionViewController : UICollectionViewDataSource, UICollecti
                 cell.imageView.fetchImageAsset(asset, targetSize: cell.imageView.bounds.size, completionHandler: nil)
                 cell.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(didTap(tapper:))))
             }
-            
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(
@@ -166,7 +165,6 @@ extension AlbumCollectionViewController : UICollectionViewDataSource, UICollecti
             cell.imageView.image = capturedImages[indexPath.item]
             return cell
         }
-
     }
     
     @objc func dismissKeyboard() {
@@ -176,7 +174,8 @@ extension AlbumCollectionViewController : UICollectionViewDataSource, UICollecti
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
        // print("items= \(albumCollection.indexPathsForSelectedItems)")
         if indexPath.item == 0 {
-          showPhotoCaptureView()
+            showPhotoCaptureView()
+            collectionView.deselectItem(at: indexPath, animated: true)
            return
         }
         let items = albumCollection.indexPathsForSelectedItems
