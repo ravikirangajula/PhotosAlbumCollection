@@ -36,7 +36,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        horizonatlCOllection.collectionViewLayout = MosaicLayout()
+        horizonatlCOllection.collectionViewLayout = MosaicGridLayout()
         horizonatlCOllection.register(DragCollectionViewCell.self, forCellWithReuseIdentifier: DragCollectionViewCell.identifer)
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(ViewController.handleLongGesture))
         self.horizonatlCOllection.addGestureRecognizer(longPressGesture)
@@ -46,25 +46,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     
     // MARK: - Gesture recogniser
-    @objc func handleLongGesture(gesture: UILongPressGestureRecognizer)
-    {
-        switch(gesture.state)
-        {
-
+    @objc func handleLongGesture(gesture: UILongPressGestureRecognizer) {
+        switch gesture.state {
         case .began:
-            guard let selectedIndexPath = self.horizonatlCOllection.indexPathForItem(at: gesture.location(in: self.horizonatlCOllection)) else
-            {
-                break
+            guard let indexPath = self.horizonatlCOllection.indexPathForItem(at: gesture.location(in: self.horizonatlCOllection)) else {
+                return
             }
-
-            self.horizonatlCOllection.beginInteractiveMovementForItem(at: selectedIndexPath)
-
+            self.horizonatlCOllection.beginInteractiveMovementForItem(at: indexPath)
         case .changed:
-            self.horizonatlCOllection.updateInteractiveMovementTargetPosition(gesture.location(in: gesture.view!))
-
+            self.horizonatlCOllection.updateInteractiveMovementTargetPosition(gesture.location(in: self.horizonatlCOllection))
         case .ended:
             self.horizonatlCOllection.endInteractiveMovement()
-
         default:
             self.horizonatlCOllection.cancelInteractiveMovement()
         }
@@ -164,13 +156,13 @@ extension ViewController: UICollectionViewDelegate,UICollectionViewDataSource {
        // self.imageView.image = imagesArra.first
         
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        let height = view.frame.size.height
-        let width = view.frame.size.width
-        // in case you you want the cell to be 40% of your controllers view
-        return CGSize(width: width * 0.4, height: height * 0.4)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//
+//        let height = view.frame.size.height
+//        let width = view.frame.size.width
+//        // in case you you want the cell to be 40% of your controllers view
+//        return CGSize(width: width * 0.4, height: height * 0.4)
+//    }
     
     
 }
@@ -204,3 +196,14 @@ extension ViewController: selectedImagesDelegate {
 }
 
 
+
+extension ViewController : UIGestureRecognizerDelegate {
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+      return true
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive press: UIPress) -> Bool {
+      return true
+    }
+}

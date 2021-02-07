@@ -26,6 +26,7 @@
 		3BEDD5E82539F82A00B8BF8C /* AlbumCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEDD5E62539F82A00B8BF8C /* AlbumCollectionViewController.swift */; };
 		3BEDD5E92539F82A00B8BF8C /* AlbumCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BEDD5E72539F82A00B8BF8C /* AlbumCollectionViewController.xib */; };
 		B851C0192559972800DED030 /* DragCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B851C0182559972800DED030 /* DragCollectionViewCell.swift */; };
+		B8A3ECCE25CFD3A1000BB7DB /* MosaicGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3ECCD25CFD3A1000BB7DB /* MosaicGridLayout.swift */; };
 		B8F9E976256902E100EE5E97 /* MosaicLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F9E975256902E100EE5E97 /* MosaicLayout.swift */; };
 		B8F9E97B256902FC00EE5E97 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F9E97A256902FC00EE5E97 /* Utilities.swift */; };
 /* End PBXBuildFile section */
@@ -76,6 +77,7 @@
 		3BF3C6E8253C1052000FF276 /* CapturePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturePhotoViewController.swift; sourceTree = "<group>"; };
 		3BF3C6E9253C1052000FF276 /* CapturePhotoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CapturePhotoViewController.xib; sourceTree = "<group>"; };
 		B851C0182559972800DED030 /* DragCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragCollectionViewCell.swift; sourceTree = "<group>"; };
+		B8A3ECCD25CFD3A1000BB7DB /* MosaicGridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MosaicGridLayout.swift; sourceTree = "<group>"; };
 		B8F9E975256902E100EE5E97 /* MosaicLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MosaicLayout.swift; sourceTree = "<group>"; };
 		B8F9E97A256902FC00EE5E97 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -132,6 +134,7 @@
 				3B4020D52539C74400B61A20 /* AppDelegate.swift */,
 				3B4020D72539C74400B61A20 /* SceneDelegate.swift */,
 				B8F9E975256902E100EE5E97 /* MosaicLayout.swift */,
+				B8A3ECCD25CFD3A1000BB7DB /* MosaicGridLayout.swift */,
 				3B4020D92539C74400B61A20 /* ViewController.swift */,
 				3B4020DB2539C74400B61A20 /* Main.storyboard */,
 				3B4020DE2539C74500B61A20 /* Assets.xcassets */,
@@ -315,6 +318,7 @@
 				3B370470253A114200D81347 /* UIImageView+Extension.swift in Sources */,
 				B8F9E97B256902FC00EE5E97 /* Utilities.swift in Sources */,
 				3B4020D62539C74400B61A20 /* AppDelegate.swift in Sources */,
+				B8A3ECCE25CFD3A1000BB7DB /* MosaicGridLayout.swift in Sources */,
 				3BEDD5E82539F82A00B8BF8C /* AlbumCollectionViewController.swift in Sources */,
 				3B37046A253A0B3800D81347 /* FetchPhotsViewController.swift in Sources */,
 				3B370475253A144800D81347 /* CollectionViewFlowLayout.swift in Sources */,
@@ -494,17 +498,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = J7HBXDH295;
 				INFOPLIST_FILE = PhotoALbum/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ravikiran.com;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mudah.scmdev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = scmdevRavi;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -515,17 +521,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = J7HBXDH295;
 				INFOPLIST_FILE = PhotoALbum/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ravikiran.com;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mudah.scmdev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = scmdevRavi;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
